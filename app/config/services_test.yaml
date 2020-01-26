@@ -1,0 +1,4 @@
+---
+services:
+  App\Infrastructure\Id2\ID2ServiceInterface:
+    class: App\Infrastructure\Id2\DummyID2Service

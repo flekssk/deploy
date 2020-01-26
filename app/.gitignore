@@ -1,0 +1,22 @@
+# composer
+/vendor
+
+!/var
+/var/cache/
+!/var/cache/.gitkeep
+
+# ide
+.idea/
+
+###> symfony/framework-bundle ###
+/.env.local.php
+/.env.*.local
+/.env.local
+/public/assets/bundles
+###< symfony/framework-bundle ###
+
+
+###> phpunit/phpunit ###
+/phpunit.xml
+###< phpunit/phpunit ###
+

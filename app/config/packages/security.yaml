@@ -1,0 +1,43 @@
+---
+security:
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Domain\Entity\User
+                property: uuid
+    firewalls:
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#        api:
+#            pattern: ^/api
+#            provider: jwt
+#            anonymous: true
+#            guard:
+#                authenticators:
+#                    - JWTTokenAuthenticator
+        main:
+            pattern: ^/
+            anonymous: ~
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 86400
+                path: /
+                always_remember_me: true
+            logout:
+                path: /logout
+                target: /login
+            guard:
+                authenticators:
+                    - App\Application\Auth\Oauth
+    # If you will change this section please don`d forget edit EasyAdminController and User
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_SUPERVISOR, ROLE_MARKETER, ROLE_GUEST]
+        ROLE_SUPERVISOR: [ROLE_MARKETER, ROLE_GUEST]
+        ROLE_MARKETER: [ROLE_GUEST]
+    access_control:
+        - {path: ^/api/v1/auth/sign-in, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/api/documentation, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - {path: ^/admin, roles: ROLE_GUEST}
+        - {path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}

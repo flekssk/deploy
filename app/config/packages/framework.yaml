@@ -1,0 +1,18 @@
+---
+framework:
+  secret: '%env(APP_SECRET)%'
+  session:
+    handler_id: snc_redis.session.handler
+  serializer:
+    circular_reference_handler: App\Application\Utils\CircularReferenceHandler
+  php_errors:
+    log: true
+  csrf_protection:
+    enabled: false
+  cache:
+    app: cache.adapter.redis
+    system: cache.adapter.redis
+    default_redis_provider: 'snc_redis.default'
+  validation: {enable_annotations: true}
+  assets:
+    base_path: 'assets'

@@ -1,0 +1,13 @@
+---
+monolog:
+    handlers:
+        main:
+            action_level: debug
+        nested:
+            level: debug
+            formatter: ~
+        deprecation:
+            formatter: ~
+        http_api_exceptions:
+            level: debug
+            formatter: ~

@@ -1,0 +1,18 @@
+---
+easy_admin:
+  entities:
+    Project:
+      label: 'Проекты'
+      class:
+        App\Domain\Entity\Project\Project
+      controller:
+        App\UI\Controller\EasyAdmin\ProjectController
+      new:
+        title: 'Создать проект'
+      form:
+        fields:
+          - {property: 'name', label: 'Название', type_options: {required: true}}
+      list:
+        fields:
+          - {property: 'id'}
+          - {property: 'name', label: 'Название'}

@@ -1,0 +1,33 @@
+---
+easy_admin:
+  entities:
+    User:
+      label: 'Пользователи'
+      class:
+        App\Domain\Entity\User
+      disabled_actions: ['new']
+      edit:
+        title: 'Редактирование пользователя %%entity_id%%'
+      form:
+        fields:
+          - {property: 'isActive', label: 'Активен'}
+          - {property: 'roleRealName', label: 'Роль', type: 'choice', type_options: {choices: {'Администратор': 'ROLE_ADMIN', 'Супервизор': 'ROLE_SUPERVISOR', 'Маркетолог': 'ROLE_MARKETER', 'Гость': 'ROLE_GUEST'}}}
+      list:
+        title: 'Список пользователей'
+        fields:
+          - {property: 'uuid', label: 'ID'}
+          - {property: 'name', label: 'ФИО'}
+          - {property: 'email', label: 'Электронная почта', type: 'email'}
+          - {property: 'isActive', label: 'Активен'}
+          - {property: 'createdAt', label: 'Дата создания'}
+          - {property: 'role', label: 'Роль'}
+      show:
+        fields:
+          - {property: 'uuid', label: 'ID'}
+          - {property: 'name', label: 'ФИО'}
+          - {property: 'email', label: 'Электронная почта', type: 'email'}
+          - {property: 'isActive', label: 'Активен'}
+          - {property: 'createdAt', label: 'Дата создания'}
+          - {property: 'role', label: 'Роль'}
+      search:
+        fields: ['uuid', 'name', 'email', 'isActive', 'createdAt', 'roles']

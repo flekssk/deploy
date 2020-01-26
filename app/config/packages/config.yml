@@ -1,0 +1,35 @@
+---
+snc_redis:
+  clients:
+    default:
+      type: predis
+      alias: default
+      dsn:
+        - '%env(resolve:SENTINEL_DSN_01)%'
+        - '%env(resolve:SENTINEL_DSN_02)%'
+        - '%env(resolve:SENTINEL_DSN_03)%'
+      options:
+        replication: sentinel
+        service: '%env(resolve:SENTINEL_SERVICE_NAME)%'
+        parameters:
+          database: '%env(resolve:SENTINEL_REDIS_DATABASE)%'
+  session:
+    client: default
+    prefix: mca_
+    ttl: 86400
+  doctrine:
+    metadata_cache:
+      client: default
+      entity_manager: default
+      document_manager: default
+    result_cache:
+      client: default
+      entity_manager: [default, read]
+      document_manager: [default, slave1, slave2]
+      namespace: "dcrc:"
+    query_cache:
+      client: default
+      entity_manager: default
+    second_level_cache:
+      client: default
+      entity_manager: default

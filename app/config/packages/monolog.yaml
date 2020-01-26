@@ -1,0 +1,41 @@
+---
+monolog:
+  channels:
+    - 'http_api_exceptions'
+  handlers:
+    main:
+      type: fingers_crossed
+      action_level: error
+      handler: nested
+      excluded_404s:
+        # regex: exclude all 404 errors from the logs
+        - ^/
+    nested:
+      type: stream
+      path: "%kernel.logs_dir%/%kernel.environment%.log"
+      level: error
+      formatter: Action\Logger\ActionFormatter
+      channels:
+        - '!http_api_exceptions'
+    console:
+      type: console
+      process_psr_3_messages: false
+      formatter: Action\Logger\ActionFormatter
+      channels:
+        - '!event'
+        - '!doctrine'
+    deprecation_filter:
+      type: filter
+      handler: deprecation
+      max_level: info
+      channels: ["php"]
+    deprecation:
+      type: stream
+      path: "%kernel.logs_dir%/deprecations.log"
+      formatter: Action\Logger\ActionFormatter
+    http_api_exceptions:
+      type: stream
+      path: '%kernel.logs_dir%/http_api_exceptions.log'
+      level: error
+      formatter: Action\Logger\ActionFormatter
+      channels: ['http_api_exceptions']
